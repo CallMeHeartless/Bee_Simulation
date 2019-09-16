@@ -9,6 +9,10 @@ public class BeeAgent : Agent
     private RayPerception3D rayPerception;          // Used to perform ML raycasts and detect objects in the enviroment
     private Rigidbody rigidBody;                    // Used to move the bee
 
+    // External References
+    [HideInInspector]
+    public BeeEnvironment beeEnvironment;           // Used to instruct the environment when to reset
+
     // Rayperception values
     static float rayPerceptionDistance = 10.0f;
     static string[] detectableObjects = { "Flower", "Hive" };//, "Bee" };        // 3 types of object
@@ -23,6 +27,8 @@ public class BeeAgent : Agent
     private Vector2 rotationVector = Vector2.zero;  // Where x = x axis rotation and y = y axis rotation for each fixed update [-1.0f, 1.0f]
 
     private float nectar = 0.0f;
+    private Vector3 lastKnownFlower = Vector3.zero;
+    private Vector3 hivePosition = Vector3.zero;
 
     private void Start() {
         // Obtain references
@@ -36,7 +42,8 @@ public class BeeAgent : Agent
         transform.Rotate(rotateBy.x, rotateBy.y, 0.0f);
 
         // Move the bee forward
-        rigidBody.AddForce(thrust * transform.forward * Time.fixedDeltaTime * moveSpeed, ForceMode.VelocityChange); // We don't really care about the bee's mass
+        //rigidBody.AddForce(thrust * transform.forward * Time.fixedDeltaTime * moveSpeed, ForceMode.VelocityChange); // We don't really care about the bee's mass
+        rigidBody.velocity = transform.forward * thrust * moveSpeed;
     }
 
     public override void AgentAction(float[] vectorAction, string textAction) {
@@ -48,7 +55,14 @@ public class BeeAgent : Agent
     }
 
     public override void AgentReset() {
-        
+        // Empty nectar
+        nectar = 0.0f;
+
+        // null last known flower
+        lastKnownFlower = hivePosition;
+
+        // Instruct environment to reset
+        beeEnvironment.ResetEnvironment();
     }
 
     public override void CollectObservations() {
@@ -76,6 +90,7 @@ public class BeeAgent : Agent
     private void MoveBee(float[] moveVector) {
         // Clamp forward movement (bees can't move backwards)
         thrust = Mathf.Clamp(moveVector[0], 0.0f, 1.0f);
+        //thrust = moveVector[0];
 
         // Determine rotation
         rotationVector.x = moveVector[1];
