@@ -5,7 +5,7 @@ using UnityEngine;
 public class BeeEnvironment : MonoBehaviour
 {
     // Internal references
-    public GameObject hive;
+    public Hive hive;
     public GameObject flowerPrefab;
     public List<GameObject> flowers = new List<GameObject>();
 
@@ -22,7 +22,10 @@ public class BeeEnvironment : MonoBehaviour
     }
 
     public void ResetEnvironment() {
-        
+        NewFlowerPositions();
+
+        // Reset hive
+        hive.OnReset();
     }
 
     /// <summary>
@@ -45,6 +48,9 @@ public class BeeEnvironment : MonoBehaviour
         return center + Quaternion.Euler(0.0f, UnityEngine.Random.Range(minAngle, maxAngle), 0.0f) * Vector3.forward * radius;
     }
 
+    /// <summary>
+    /// Creates the initial flowers and positions them (as specified by initial parameters)
+    /// </summary>
     private void InstantiateFlowers() {
         // Flowers should spawn roughly in clusters of n around a central position
         Vector3 flowerClusterPosition = transform.position;
@@ -61,6 +67,66 @@ public class BeeEnvironment : MonoBehaviour
             // Set its position 
             flower.transform.position = ChooseRandomPosition(flowerClusterPosition, 0.0f, 360.0f, 1.0f, 3.0f);
 
+            // Parent the flower to the environment
+            flower.transform.SetParent(transform);
+
+            // Give the flower its ID
+            flower.GetComponent<Flower>().id = i;
+
+            // Add to list
+            flowers.Add(flower);
+
+        }
+    }
+
+    /// <summary>
+    /// Finds a new random position for all existing flowers
+    /// </summary>
+    private void NewFlowerPositions() {
+        // Check to see if we need more flowers
+        if(flowerCount > flowers.Count) {
+            AddNewFlowers();
+        }
+
+        // Flowers should spawn roughly in clusters of n around a central position
+        Vector3 flowerClusterPosition = transform.position;
+
+        // Iterate through flowers and reset their positions
+        for(int i = 0; i < flowers.Count; ++i) {
+            // Get a new cluster position for every n flowers
+            if(i % flowerClusterNumber == 0) {
+                flowerClusterPosition = ChooseRandomPosition(transform.position, 0.0f, 360.0f, flowerSpawnMinRadius, flowerSpawnMaxRadius);
+            }
+
+            // Set the flower position
+            flowers[i].transform.position = ChooseRandomPosition(flowerClusterPosition, 0.0f, 360.0f, 1.0f, 3.0f);
+
+            // Reset nectar
+            flowers[i].GetComponent<Flower>().nectar = 0.0f;    // we know the component exists - this is done here purely for efficiency, 
+        }
+    }
+
+    /// <summary>
+    /// Instantiates new flower prefabs if the count has increased
+    /// </summary>
+    private void AddNewFlowers() {
+        // Safety check
+        if(flowerCount <= flowers.Count) {
+            Debug.LogWarning("Warning: Attempting to add new flowers when the flowerCount < flowers list count.");
+            return;
+        }
+
+        // Iterate from the current count to the new count
+        for(int i = flowers.Count; i < flowerCount; ++i) {
+            // Create new instance
+            GameObject flower = GameObject.Instantiate<GameObject>(flowerPrefab);
+            flower.transform.SetParent(transform);
+
+            // Set ID
+            flower.GetComponent<Flower>().id = i;
+
+            // Add to list
+            flowers.Add(flower);
         }
     }
 }

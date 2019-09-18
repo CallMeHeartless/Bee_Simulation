@@ -10,7 +10,7 @@ public class BeeAgent : Agent
     private Rigidbody rigidBody;                    // Used to move the bee
 
     // External References
-    [HideInInspector]
+    //[HideInInspector]
     public BeeEnvironment beeEnvironment;           // Used to instruct the environment when to reset
 
     // Rayperception values
