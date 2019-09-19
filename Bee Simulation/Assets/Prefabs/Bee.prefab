@@ -58,7 +58,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 2f8d857ad6911eb419ad873a24c887c7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -163,8 +163,10 @@ MonoBehaviour:
     resetOnDone: 1
     onDemandDecision: 0
     numberOfActionsBetweenDecisions: 1
+  beeEnvironment: {fileID: 0}
   moveSpeed: 1
   turnSpeed: 45
+  nectarDrain: 0
 --- !u!114 &3981488966591915228
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -432,5 +432,10 @@ PrefabInstance:
       propertyPath: flowerCount
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 5090009745860997962, guid: 2aace83dd163b324a8c2882e80bbf99d,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2f8d857ad6911eb419ad873a24c887c7, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2aace83dd163b324a8c2882e80bbf99d, type: 3}

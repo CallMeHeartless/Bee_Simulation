@@ -26,7 +26,9 @@ public class BeeAgent : Agent
     private float thrust = 0.0f;                    // The thrust moving the bee forward each fixed update [0, 1.0f]
     private Vector2 rotationVector = Vector2.zero;  // Where x = x axis rotation and y = y axis rotation for each fixed update [-1.0f, 1.0f]
 
+    public float nectarDrain;
     private float nectar = 0.0f;
+    private static float maxNectar = 3.0f;
     private Vector3 lastKnownFlower = Vector3.zero;
     private Vector3 hivePosition = Vector3.zero;
 
@@ -34,6 +36,7 @@ public class BeeAgent : Agent
         // Obtain references
         rayPerception = GetComponent<RayPerception3D>();
         rigidBody = GetComponent<Rigidbody>();
+        nectarDrain = Time.fixedDeltaTime;
     }
 
     private void FixedUpdate() {
@@ -97,5 +100,75 @@ public class BeeAgent : Agent
         rotationVector.y = moveVector[2];
     }
 
-    
+    /// <summary>
+    /// The mechanism through which bees will interact with objects - by bumping into them
+    /// </summary>
+    /// <param name="collision"></param>
+    private void OnCollisionStay(Collision collision) {
+        // Check for hive
+        if (collision.gameObject.CompareTag("Hive")) {
+            // Hive interaction
+            Hive hive = collision.gameObject.GetComponent<Hive>();
+            if (hive) { // Safety check
+                HiveInteraction(hive);
+            }
+        }
+        // Check for flower
+        else if (collision.gameObject.CompareTag("Flower")) {
+            // Flower interaction
+            Flower flower = collision.gameObject.GetComponent<Flower>();
+            if (flower) {   // Safety check
+                FlowerInteraction(flower);
+            }
+        }
+        //else if (collision.gameObject.CompareTag("Bee")) {
+        //    // Bee interaction
+        //}
+    }
+
+    /// <summary>
+    /// This is used to add a flower to the list of recently visited flowers
+    /// </summary>
+    /// <param name="collision"></param>
+    private void OnCollisionExit(Collision collision) {
+        
+    }
+
+    /// <summary>
+    /// Attempts to give the bee's nectar to the hive, rewarding the agent if successful
+    /// </summary>
+    /// <param name="hive"></param>
+    private void HiveInteraction(Hive hive) {
+        // Only process this interaction if the bee has nectar
+        if (nectar > 0.0f) {
+            // Add the bee's nectar to the hive
+            hive.nectar += nectar;
+
+            // Reward the bee for being good and returning nectar to the hive
+            SetReward(nectar);
+
+            // Remove the nectar from the bee
+            nectar = 0.0f;
+        }
+    }
+
+    private void FlowerInteraction(Flower flower) {
+        // End interaction if the flower does not have nectar
+        if(flower.nectar <= 0.0f || nectar >=maxNectar) {
+            return;
+        }
+
+        // Take some nectar from the flower
+        flower.SubtractNectar(Time.fixedDeltaTime);
+
+        // Give it to the bee
+        nectar += Time.fixedDeltaTime;
+
+        // Clamp logically
+        nectar = Mathf.Clamp(nectar, 0.0f, maxNectar);
+
+        // Reward the bee
+        SetReward(Time.fixedDeltaTime);
+    }
+
 }
