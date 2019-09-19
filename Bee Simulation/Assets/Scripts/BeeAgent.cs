@@ -12,6 +12,7 @@ public class BeeAgent : Agent
     // External References
     //[HideInInspector]
     public BeeEnvironment beeEnvironment;           // Used to instruct the environment when to reset
+    public Hive theHive;
 
     // Rayperception values
     static float rayPerceptionDistance = 10.0f;
@@ -45,8 +46,12 @@ public class BeeAgent : Agent
         transform.Rotate(rotateBy.x, rotateBy.y, 0.0f);
 
         // Move the bee forward
-        //rigidBody.AddForce(thrust * transform.forward * Time.fixedDeltaTime * moveSpeed, ForceMode.VelocityChange); // We don't really care about the bee's mass
-        rigidBody.velocity = transform.forward * thrust * moveSpeed;
+        rigidBody.velocity = transform.forward * thrust * moveSpeed; // We don't really care about the bee moving in a realistic way here
+
+        // Curriculum training
+        if(BeeEnvironment.use_radius == 1.0f && nectar > 0.0f) {
+            CurriculumTraining();
+        }
     }
 
     public override void AgentAction(float[] vectorAction, string textAction) {
@@ -66,6 +71,8 @@ public class BeeAgent : Agent
 
         // Instruct environment to reset
         beeEnvironment.ResetEnvironment();
+
+        // Currently don't worry about resetting the bee's position
     }
 
     public override void CollectObservations() {
@@ -84,6 +91,9 @@ public class BeeAgent : Agent
         // Rayperception information (9 * (3+2) = 45) // 36
         List<float> perception = rayPerception.Perceive(rayPerceptionDistance, detectionAngles, detectableObjects, 0, 0);
         AddVectorObs(perception);
+        // Look down
+        List<float> downwardPerception = rayPerception.Perceive(rayPerceptionDistance, detectionAngles, detectableObjects, 0, -1.0f);
+        AddVectorObs(downwardPerception);
     }
 
     /// <summary>
@@ -153,6 +163,7 @@ public class BeeAgent : Agent
     }
 
     private void FlowerInteraction(Flower flower) {
+        print("We hit a fucking flower!");
         // End interaction if the flower does not have nectar
         if(flower.nectar <= 0.0f || nectar >=maxNectar) {
             return;
@@ -169,6 +180,20 @@ public class BeeAgent : Agent
 
         // Reward the bee
         SetReward(Time.fixedDeltaTime);
+    }
+
+    /// <summary>
+    /// This function is used to help the bee agents learn - during curriculum training, the bee does not have to completely return to the hive to get a reward
+    /// This behaviour is encouraged by rewarding the bee when they get close enough, and gradually reducing the distance needed
+    /// </summary>
+    private void CurriculumTraining() {
+        // Find distance to hive
+        float distanceToHive = Vector3.Distance(transform.position, theHive.transform.position);
+
+        // Check if we are within our training distance
+        if(distanceToHive <= BeeEnvironment.hive_radius) {
+            HiveInteraction(theHive);
+        }
     }
 
 }

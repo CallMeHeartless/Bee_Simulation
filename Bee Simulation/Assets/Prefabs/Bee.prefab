@@ -155,7 +155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 170e8f3773f01854ebb346cd269642d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  brain: {fileID: 11400000, guid: aef5760d8275fb34fb684b1fcdd76fb9, type: 2}
+  brain: {fileID: 11400000, guid: 833ac31e4fcd1ff4e998731b199a56da, type: 2}
   agentParameters:
     agentCameras: []
     agentRenderTextures: []
@@ -164,7 +164,7 @@ MonoBehaviour:
     onDemandDecision: 0
     numberOfActionsBetweenDecisions: 1
   beeEnvironment: {fileID: 0}
-  moveSpeed: 1
+  moveSpeed: 3
   turnSpeed: 45
   nectarDrain: 0
 --- !u!114 &3981488966591915228

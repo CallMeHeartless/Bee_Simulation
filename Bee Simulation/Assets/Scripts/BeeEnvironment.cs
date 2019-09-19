@@ -16,6 +16,10 @@ public class BeeEnvironment : MonoBehaviour
     [Tooltip("The number of flowers that should be in one 'cluster'")]
     public int flowerClusterNumber = 3;
 
+    // Curriculum variables
+    public static float use_radius = 1.0f;
+    public static float hive_radius = 6.0f;
+
     private void Start() {
         // Instantiate flowers
         InstantiateFlowers();

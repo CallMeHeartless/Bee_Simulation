@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BeeLearningBrain
   m_EditorClassIdentifier: 
   brainParameters:
-    vectorObservationSize: 43
+    vectorObservationSize: 79
     numStackedVectorObservations: 1
     vectorActionSize: 03000000
     cameraResolutions: []
@@ -22,5 +22,5 @@ MonoBehaviour:
     - x rotation
     - y rotation
     vectorActionSpaceType: 1
-  model: {fileID: 0}
+  model: {fileID: 5022602860645237092, guid: 71ac65331accf66428beae39f3ed62d5, type: 3}
   inferenceDevice: 0

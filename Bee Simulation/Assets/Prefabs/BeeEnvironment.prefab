@@ -50,10 +50,10 @@ MonoBehaviour:
   flowerPrefab: {fileID: 4934550905063373219, guid: 59dae039267921c4c94fcd138347b12c,
     type: 3}
   flowers: []
-  flowerCount: 3
-  flowerSpawnMinRadius: 10
+  flowerCount: 75
+  flowerSpawnMinRadius: 7
   flowerSpawnMaxRadius: 20
-  flowerClusterNumber: 3
+  flowerClusterNumber: 5
 --- !u!1 &5090009745205147256
 GameObject:
   m_ObjectHideFlags: 0
@@ -254,12 +254,12 @@ PrefabInstance:
     - target: {fileID: 3981488966591915227, guid: 211c7cc7147def345884292d06b94adc,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.21
+      value: 1.81
       objectReference: {fileID: 0}
     - target: {fileID: 3981488966591915227, guid: 211c7cc7147def345884292d06b94adc,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1.44
       objectReference: {fileID: 0}
     - target: {fileID: 3981488966591915227, guid: 211c7cc7147def345884292d06b94adc,
         type: 3}
@@ -306,6 +306,11 @@ PrefabInstance:
       propertyPath: beeEnvironment
       value: 
       objectReference: {fileID: 1255614813585222573}
+    - target: {fileID: 3981488966591915225, guid: 211c7cc7147def345884292d06b94adc,
+        type: 3}
+      propertyPath: theHive
+      value: 
+      objectReference: {fileID: 5090009744652645741}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 211c7cc7147def345884292d06b94adc, type: 3}
 --- !u!4 &5090009744896854281 stripped

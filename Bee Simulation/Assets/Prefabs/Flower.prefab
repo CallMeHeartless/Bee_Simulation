@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7495291810653565938}
   m_Layer: 0
   m_Name: Flower
-  m_TagString: Untagged
+  m_TagString: Flower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d916fd591284384fabcbdf19d4b24f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxNectar: 1
   nectar: 0
   id: 0
   nectarRefillDelay: 1.985
