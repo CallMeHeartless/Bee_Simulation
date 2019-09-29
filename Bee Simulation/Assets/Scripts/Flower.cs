@@ -12,11 +12,15 @@ public class Flower : MonoBehaviour
     [Range(4.0f, 7.0f)][Tooltip("The amount of time (in seconds) it takes before the flower starts regaining nectar")]
     public float nectarRefillDelay;
     private bool isRefilling = true;
+    private Material flowerMaterial;
 
     private static float minScale = 0.5f;       // The minimum scale that can be applied to the flower on reset
     private static float maxScale = 1.5f;       // The maximum scale that can be applied to the flower on reset
 
     private void Start() {
+        // Obtain references
+        flowerMaterial = GetComponent<MeshRenderer>().material;
+
         // Change this flower's scale 
         ResetFlower();
     }
@@ -41,7 +45,7 @@ public class Flower : MonoBehaviour
     /// This function is called when the environment is reset and upon initialisation
     /// </summary>
     public void ResetFlower() {
-        transform.localScale = new Vector3(1.0f, 1.0f, 1.0f) * Random.Range(minScale, maxScale);
+        transform.parent.localScale = new Vector3(1.0f, 1.0f, 1.0f) * Random.Range(minScale, maxScale);
     }
 
     /// <summary>
@@ -57,6 +61,7 @@ public class Flower : MonoBehaviour
 
         // Start refilling once drained (after a delay)
         if(nectar == 0.0f && !isRefilling) {
+            flowerMaterial.color = Color.black;
             Invoke("StartRefilling", nectarRefillDelay);
         }
     }
@@ -66,6 +71,7 @@ public class Flower : MonoBehaviour
     /// </summary>
     private void StartRefilling() {
         isRefilling = true;
+        flowerMaterial.color = Color.white;
     }
     
 }

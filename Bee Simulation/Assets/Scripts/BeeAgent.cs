@@ -8,14 +8,14 @@ public class BeeAgent : Agent
     // Internal references
     private RayPerception3D rayPerception;          // Used to perform ML raycasts and detect objects in the enviroment
     private Rigidbody rigidBody;                    // Used to move the bee
+    private Material beeMaterial;                   // Used to help visual the bee's status
 
     // External References
-    //[HideInInspector]
     public BeeEnvironment beeEnvironment;           // Used to instruct the environment when to reset
     public Hive theHive;
 
     // Rayperception values
-    static float rayPerceptionDistance = 10.0f;
+    static float rayPerceptionDistance = 20.0f;
     static string[] detectableObjects = { "Flower", "Hive" };//, "Bee" };        // 3 types of object
     static float[] detectionAngles = {20.0f, 45.0f, 60.0f, 75.0f, 90.0f, 105.0f, 120.0f, 135.0f, 160.0f}; // 9 angles
 
@@ -38,6 +38,7 @@ public class BeeAgent : Agent
         rayPerception = GetComponent<RayPerception3D>();
         rigidBody = GetComponent<Rigidbody>();
         nectarDrain = Time.fixedDeltaTime;
+        beeMaterial = GetComponentInChildren<MeshRenderer>().material;
     }
 
     private void FixedUpdate() {
@@ -72,14 +73,19 @@ public class BeeAgent : Agent
         // Instruct environment to reset
         beeEnvironment.ResetEnvironment();
 
-        // Currently don't worry about resetting the bee's position
+        // Reset position and rotation
+        transform.localPosition = hivePosition + Vector3.forward;
+        transform.rotation = Quaternion.identity;
+
+        // Reset colour
+        beeMaterial.color = Color.yellow;
     }
 
     public override void CollectObservations() {
         // Send the agent's nectar value (1)
         AddVectorObs(nectar);
 
-        // Send agent's velocity (3)
+        // Send agent's velocity (3) [Note: this is the same as the forward vector of the transform]
         AddVectorObs(rigidBody.velocity.normalized);
 
         // Normalise agent's rotation 
@@ -88,12 +94,21 @@ public class BeeAgent : Agent
         // Send agent's rotation (3)
         AddVectorObs(normalisedRotation);
 
+        // Send distance to hive (1)
+        AddVectorObs(Vector3.Distance(transform.position, hivePosition));
+
+        // Send direction to hive (3)
+        AddVectorObs((transform.position - hivePosition).normalized);
+
         // Rayperception information (9 * (3+2) = 45) // 36
         List<float> perception = rayPerception.Perceive(rayPerceptionDistance, detectionAngles, detectableObjects, 0, 0);
         AddVectorObs(perception);
-        // Look down
+        // Look down (36)
         List<float> downwardPerception = rayPerception.Perceive(rayPerceptionDistance, detectionAngles, detectableObjects, 0, -1.0f);
         AddVectorObs(downwardPerception);
+        // Look up (36)
+        List<float> upwardPerception = rayPerception.Perceive(rayPerceptionDistance, detectionAngles, detectableObjects, 0, 1.0f);
+        AddVectorObs(upwardPerception);
     }
 
     /// <summary>
@@ -115,6 +130,8 @@ public class BeeAgent : Agent
     /// </summary>
     /// <param name="collision"></param>
     private void OnCollisionStay(Collision collision) {
+        
+
         // Check for hive
         if (collision.gameObject.CompareTag("Hive")) {
             // Hive interaction
@@ -125,8 +142,10 @@ public class BeeAgent : Agent
         }
         // Check for flower
         else if (collision.gameObject.CompareTag("Flower")) {
+
             // Flower interaction
             Flower flower = collision.gameObject.GetComponent<Flower>();
+           
             if (flower) {   // Safety check
                 FlowerInteraction(flower);
             }
@@ -159,11 +178,13 @@ public class BeeAgent : Agent
 
             // Remove the nectar from the bee
             nectar = 0.0f;
+
+            // Change colour back  
+            beeMaterial.color = Color.yellow;
         }
     }
 
     private void FlowerInteraction(Flower flower) {
-        print("We hit a fucking flower!");
         // End interaction if the flower does not have nectar
         if(flower.nectar <= 0.0f || nectar >=maxNectar) {
             return;
@@ -177,6 +198,11 @@ public class BeeAgent : Agent
 
         // Clamp logically
         nectar = Mathf.Clamp(nectar, 0.0f, maxNectar);
+
+        // Debug colour change when the bee is full on nectar
+        if(nectar == maxNectar) {
+            beeMaterial.color = Color.blue;
+        }
 
         // Reward the bee
         SetReward(Time.fixedDeltaTime);

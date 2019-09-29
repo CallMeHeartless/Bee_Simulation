@@ -9,10 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 760940083640318323}
-  - component: {fileID: 7495291810653565938}
   m_Layer: 0
   m_Name: Flower
-  m_TagString: Flower
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -33,22 +32,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7495291810653565938
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4934550905063373219}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d916fd591284384fabcbdf19d4b24f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxNectar: 1
-  nectar: 0
-  id: 0
-  nectarRefillDelay: 1.985
 --- !u!1 &5168907669042079004
 GameObject:
   m_ObjectHideFlags: 0
@@ -61,8 +44,9 @@ GameObject:
   - component: {fileID: 618239523888306905}
   - component: {fileID: 4306661950976863422}
   - component: {fileID: 2340086906530877600}
+  - component: {fileID: 7781987400625169049}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Petals
   m_TagString: Flower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -141,6 +125,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7781987400625169049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5168907669042079004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d916fd591284384fabcbdf19d4b24f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxNectar: 1
+  nectar: 0
+  id: 0
+  nectarRefillDelay: 1.985
 --- !u!1 &6066191576450285006
 GameObject:
   m_ObjectHideFlags: 0

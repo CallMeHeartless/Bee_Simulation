@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BeeLearningBrain
   m_EditorClassIdentifier: 
   brainParameters:
-    vectorObservationSize: 79
+    vectorObservationSize: 83
     numStackedVectorObservations: 1
     vectorActionSize: 03000000
     cameraResolutions: []

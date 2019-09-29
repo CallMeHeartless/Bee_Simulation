@@ -53,7 +53,7 @@ MonoBehaviour:
   flowerCount: 75
   flowerSpawnMinRadius: 7
   flowerSpawnMaxRadius: 20
-  flowerClusterNumber: 5
+  flowerClusterNumber: 4
 --- !u!1 &5090009745205147256
 GameObject:
   m_ObjectHideFlags: 0
@@ -213,6 +213,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 428728693238789565, guid: c48e611eae3e3ac478091cf3ebf18c43,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c48e611eae3e3ac478091cf3ebf18c43, type: 3}

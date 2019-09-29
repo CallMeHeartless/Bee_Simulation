@@ -75,7 +75,7 @@ public class BeeEnvironment : MonoBehaviour
             flower.transform.SetParent(transform);
 
             // Give the flower its ID
-            flower.GetComponent<Flower>().id = i;
+            flower.GetComponentInChildren<Flower>().id = i;
 
             // Add to list
             flowers.Add(flower);
@@ -106,7 +106,7 @@ public class BeeEnvironment : MonoBehaviour
             flowers[i].transform.position = ChooseRandomPosition(flowerClusterPosition, 0.0f, 360.0f, 1.0f, 3.0f);
 
             // Reset nectar
-            flowers[i].GetComponent<Flower>().nectar = 0.0f;    // we know the component exists - this is done here purely for efficiency, 
+            flowers[i].GetComponentInChildren<Flower>().nectar = 0.0f;    // we know the component exists - this is done here purely for efficiency, 
         }
     }
 
@@ -127,7 +127,7 @@ public class BeeEnvironment : MonoBehaviour
             flower.transform.SetParent(transform);
 
             // Set ID
-            flower.GetComponent<Flower>().id = i;
+            flower.GetComponentInChildren<Flower>().id = i;
 
             // Add to list
             flowers.Add(flower);
