@@ -28,7 +28,7 @@ public class BeeAgent : Agent
     private Vector2 rotationVector = Vector2.zero;  // Where x = x axis rotation and y = y axis rotation for each fixed update [-1.0f, 1.0f]
 
     public float nectarDrain;
-    private float nectar = 0.0f;
+    public float nectar = 0.0f;
     private static float maxNectar = 3.0f;
     private Vector3 lastKnownFlower = Vector3.zero;
     private Vector3 hivePosition = Vector3.zero;
@@ -39,6 +39,7 @@ public class BeeAgent : Agent
         rigidBody = GetComponent<Rigidbody>();
         nectarDrain = Time.fixedDeltaTime;
         beeMaterial = GetComponentInChildren<MeshRenderer>().material;
+        hivePosition = theHive.transform.position;
     }
 
     private void FixedUpdate() {
@@ -74,7 +75,7 @@ public class BeeAgent : Agent
         beeEnvironment.ResetEnvironment();
 
         // Reset position and rotation
-        transform.localPosition = hivePosition + Vector3.forward;
+        transform.position = hivePosition + Vector3.forward;
         transform.rotation = Quaternion.identity;
 
         // Reset colour
@@ -104,11 +105,11 @@ public class BeeAgent : Agent
         List<float> perception = rayPerception.Perceive(rayPerceptionDistance, detectionAngles, detectableObjects, 0, 0);
         AddVectorObs(perception);
         // Look down (36)
-        List<float> downwardPerception = rayPerception.Perceive(rayPerceptionDistance, detectionAngles, detectableObjects, 0, -1.0f);
-        AddVectorObs(downwardPerception);
-        // Look up (36)
-        List<float> upwardPerception = rayPerception.Perceive(rayPerceptionDistance, detectionAngles, detectableObjects, 0, 1.0f);
-        AddVectorObs(upwardPerception);
+        //List<float> downwardPerception = rayPerception.Perceive(rayPerceptionDistance, detectionAngles, detectableObjects, 0, -1.0f);
+        //AddVectorObs(downwardPerception);
+        //// Look up (36)
+        //List<float> upwardPerception = rayPerception.Perceive(rayPerceptionDistance, detectionAngles, detectableObjects, 0, 1.0f);
+        //AddVectorObs(upwardPerception);
     }
 
     /// <summary>
@@ -121,8 +122,8 @@ public class BeeAgent : Agent
         //thrust = moveVector[0];
 
         // Determine rotation
-        rotationVector.x = moveVector[1];
-        rotationVector.y = moveVector[2];
+        //rotationVector.x = moveVector[1];
+        rotationVector.y = moveVector[1]; // formerly 2
     }
 
     /// <summary>
@@ -191,10 +192,11 @@ public class BeeAgent : Agent
         }
 
         // Take some nectar from the flower
-        flower.SubtractNectar(Time.fixedDeltaTime);
+        flower.SubtractNectar(3.0f);//Time.fixedDeltaTime
 
         // Give it to the bee
-        nectar += Time.fixedDeltaTime;
+        //nectar += Time.fixedDeltaTime;
+        nectar = 3.0f;
 
         // Clamp logically
         nectar = Mathf.Clamp(nectar, 0.0f, maxNectar);
@@ -205,7 +207,7 @@ public class BeeAgent : Agent
         }
 
         // Reward the bee
-        SetReward(Time.fixedDeltaTime);
+        SetReward(3.0f);//Time.fixedDeltaTime
     }
 
     /// <summary>

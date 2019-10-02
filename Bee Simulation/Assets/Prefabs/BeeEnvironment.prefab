@@ -50,9 +50,9 @@ MonoBehaviour:
   flowerPrefab: {fileID: 4934550905063373219, guid: 59dae039267921c4c94fcd138347b12c,
     type: 3}
   flowers: []
-  flowerCount: 75
-  flowerSpawnMinRadius: 7
-  flowerSpawnMaxRadius: 20
+  flowerCount: 1
+  flowerSpawnMinRadius: 8
+  flowerSpawnMaxRadius: 9
   flowerClusterNumber: 4
 --- !u!1 &5090009745205147256
 GameObject:
@@ -259,7 +259,7 @@ PrefabInstance:
     - target: {fileID: 3981488966591915227, guid: 211c7cc7147def345884292d06b94adc,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.81
+      value: 1.4
       objectReference: {fileID: 0}
     - target: {fileID: 3981488966591915227, guid: 211c7cc7147def345884292d06b94adc,
         type: 3}
@@ -316,6 +316,12 @@ PrefabInstance:
       propertyPath: theHive
       value: 
       objectReference: {fileID: 5090009744652645741}
+    - target: {fileID: 3981488966591915225, guid: 211c7cc7147def345884292d06b94adc,
+        type: 3}
+      propertyPath: brain
+      value: 
+      objectReference: {fileID: 11400000, guid: 833ac31e4fcd1ff4e998731b199a56da,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 211c7cc7147def345884292d06b94adc, type: 3}
 --- !u!4 &5090009744896854281 stripped

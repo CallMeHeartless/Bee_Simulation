@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 3981488965408628373}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 3981488966591915227}
   m_RootOrder: 0
@@ -155,7 +155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 170e8f3773f01854ebb346cd269642d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  brain: {fileID: 11400000, guid: 833ac31e4fcd1ff4e998731b199a56da, type: 2}
+  brain: {fileID: 11400000, guid: aef5760d8275fb34fb684b1fcdd76fb9, type: 2}
   agentParameters:
     agentCameras: []
     agentRenderTextures: []
@@ -165,9 +165,10 @@ MonoBehaviour:
     numberOfActionsBetweenDecisions: 1
   beeEnvironment: {fileID: 0}
   theHive: {fileID: 0}
-  moveSpeed: 3
-  turnSpeed: 90
+  moveSpeed: 6
+  turnSpeed: 120
   nectarDrain: 0
+  nectar: 0
 --- !u!114 &3981488966591915228
 MonoBehaviour:
   m_ObjectHideFlags: 0
