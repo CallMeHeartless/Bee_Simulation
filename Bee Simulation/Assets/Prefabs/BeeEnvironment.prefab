@@ -52,8 +52,8 @@ MonoBehaviour:
   flowers: []
   flowerCount: 50
   flowerSpawnMinRadius: 8
-  flowerSpawnMaxRadius: 9
-  flowerClusterNumber: 4
+  flowerSpawnMaxRadius: 20
+  flowerClusterNumber: 3
 --- !u!1 &5090009745205147256
 GameObject:
   m_ObjectHideFlags: 0

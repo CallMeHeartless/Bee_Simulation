@@ -95,7 +95,7 @@ public class BeeAgent : Agent
         AddVectorObs(maxNectar);
 
         // Send agent's velocity (3) [Note: this is the same as the forward vector of the transform]
-        AddVectorObs(rigidBody.velocity.normalized);
+        AddVectorObs(transform.forward); //rigidBody.velocity.normalized
 
         // Normalise agent's rotation 
         Vector3 normalisedRotation = (transform.rotation.eulerAngles / 180.0f) - Vector3.one; // Convert to [-1, 1]
@@ -218,7 +218,7 @@ public class BeeAgent : Agent
         }
 
         // Reward the bee
-        SetReward(3.0f);//Time.fixedDeltaTime
+        SetReward(Time.fixedDeltaTime);//
     }
 
     /// <summary>
