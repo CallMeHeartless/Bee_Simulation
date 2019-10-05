@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BeePlayerBrain
   m_EditorClassIdentifier: 
   brainParameters:
-    vectorObservationSize: 119
+    vectorObservationSize: 47
     numStackedVectorObservations: 1
     vectorActionSize: 03000000
     cameraResolutions: []

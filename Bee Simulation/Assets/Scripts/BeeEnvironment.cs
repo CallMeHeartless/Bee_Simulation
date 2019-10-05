@@ -28,6 +28,13 @@ public class BeeEnvironment : MonoBehaviour
     public void ResetEnvironment() {
         NewFlowerPositions();
 
+        // Reset flowers
+        if(flowers != null) {
+            foreach(GameObject flower in flowers) {
+                flower.GetComponentInChildren<Flower>().ResetFlower();
+            }
+        }
+
         // Reset hive
         hive.OnReset();
     }

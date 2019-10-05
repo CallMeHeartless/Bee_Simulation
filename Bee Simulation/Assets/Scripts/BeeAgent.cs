@@ -8,7 +8,7 @@ public class BeeAgent : Agent
     // Internal references
     private RayPerception3D rayPerception;          // Used to perform ML raycasts and detect objects in the enviroment
     private Rigidbody rigidBody;                    // Used to move the bee
-    private Material beeMaterial;                   // Used to help visual the bee's status
+    private Material beeMaterial;                   // Used to help visualise the bee's status
 
     // External References
     public BeeEnvironment beeEnvironment;           // Used to instruct the environment when to reset
@@ -50,6 +50,11 @@ public class BeeAgent : Agent
         // Move the bee forward
         rigidBody.velocity = transform.forward * thrust * moveSpeed; // We don't really care about the bee moving in a realistic way here
 
+        // Visual update
+        if (beeMaterial) {
+            beeMaterial.color = Color.Lerp(Color.yellow, Color.blue, (nectar / maxNectar));
+        }
+
         // Curriculum training
         if(BeeEnvironment.use_radius == 1.0f && nectar > 0.0f) {
             CurriculumTraining();
@@ -85,6 +90,9 @@ public class BeeAgent : Agent
     public override void CollectObservations() {
         // Send the agent's nectar value (1)
         AddVectorObs(nectar);
+
+        // Send the agent's max nectar value (1)
+        AddVectorObs(maxNectar);
 
         // Send agent's velocity (3) [Note: this is the same as the forward vector of the transform]
         AddVectorObs(rigidBody.velocity.normalized);
@@ -131,12 +139,11 @@ public class BeeAgent : Agent
     /// </summary>
     /// <param name="collision"></param>
     private void OnCollisionStay(Collision collision) {
-        
-
         // Check for hive
         if (collision.gameObject.CompareTag("Hive")) {
+
             // Hive interaction
-            Hive hive = collision.gameObject.GetComponent<Hive>();
+            Hive hive = collision.gameObject.GetComponentInParent<Hive>();
             if (hive) { // Safety check
                 HiveInteraction(hive);
             }
@@ -185,6 +192,10 @@ public class BeeAgent : Agent
         }
     }
 
+    /// <summary>
+    /// Extracts nectar from a provided flower (if possible), adding it to the bee's store.
+    /// </summary>
+    /// <param name="flower"></param>
     private void FlowerInteraction(Flower flower) {
         // End interaction if the flower does not have nectar
         if(flower.nectar <= 0.0f || nectar >=maxNectar) {
@@ -192,11 +203,11 @@ public class BeeAgent : Agent
         }
 
         // Take some nectar from the flower
-        flower.SubtractNectar(3.0f);//Time.fixedDeltaTime
+        flower.SubtractNectar(Time.fixedDeltaTime);//Time.fixedDeltaTime
 
         // Give it to the bee
-        //nectar += Time.fixedDeltaTime;
-        nectar = 3.0f;
+        nectar += Time.fixedDeltaTime;
+        //nectar = 3.0f;
 
         // Clamp logically
         nectar = Mathf.Clamp(nectar, 0.0f, maxNectar);

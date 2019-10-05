@@ -50,7 +50,7 @@ MonoBehaviour:
   flowerPrefab: {fileID: 4934550905063373219, guid: 59dae039267921c4c94fcd138347b12c,
     type: 3}
   flowers: []
-  flowerCount: 1
+  flowerCount: 50
   flowerSpawnMinRadius: 8
   flowerSpawnMaxRadius: 9
   flowerClusterNumber: 4

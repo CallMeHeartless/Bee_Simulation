@@ -21,5 +21,5 @@ MonoBehaviour:
     - Thrust
     - y rotation
     vectorActionSpaceType: 1
-  model: {fileID: 5022602860645237092, guid: 1ea17b87257cece489edd707358e020b, type: 3}
+  model: {fileID: 5022602860645237092, guid: 71ac65331accf66428beae39f3ed62d5, type: 3}
   inferenceDevice: 0

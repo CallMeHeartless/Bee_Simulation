@@ -39,6 +39,11 @@ public class Flower : MonoBehaviour
                 isRefilling = false;
             }
         }
+
+        // Lerp material between two colours based on nectar content
+        if (flowerMaterial) {
+            flowerMaterial.color = Color.Lerp(Color.black, Color.white, nectar / maxNectar);
+        }
     }
 
     /// <summary>
@@ -47,6 +52,7 @@ public class Flower : MonoBehaviour
     public void ResetFlower() {
         //transform.parent.localScale = new Vector3(1.0f, 1.0f, 1.0f) * Random.Range(minScale, maxScale);
         isRefilling = true;
+        nectar = maxNectar;
     }
 
     /// <summary>
@@ -62,7 +68,11 @@ public class Flower : MonoBehaviour
 
         // Start refilling once drained (after a delay)
         if(nectar == 0.0f && !isRefilling) {
-            flowerMaterial.color = Color.black;
+            Invoke("StartRefilling", nectarRefillDelay);
+        }
+        // If a bee takes nectar while the flower is refilling, stop it from refilling while being drained
+        else if (isRefilling) {
+            isRefilling = false;
             Invoke("StartRefilling", nectarRefillDelay);
         }
     }
@@ -72,7 +82,7 @@ public class Flower : MonoBehaviour
     /// </summary>
     private void StartRefilling() {
         isRefilling = true;
-        flowerMaterial.color = Color.white;
+        //flowerMaterial.color = Color.white;
     }
     
 }

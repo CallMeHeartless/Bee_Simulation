@@ -1066,8 +1066,7 @@ MonoBehaviour:
   broadcastHub:
     broadcastingBrains:
     - {fileID: 11400000, guid: 833ac31e4fcd1ff4e998731b199a56da, type: 2}
-    _brainsToControl:
-    - {fileID: 11400000, guid: 833ac31e4fcd1ff4e998731b199a56da, type: 2}
+    _brainsToControl: []
   maxSteps: 0
   trainingConfiguration:
     width: 80
@@ -1084,7 +1083,7 @@ MonoBehaviour:
   resetParameters:
     resetParameters:
     - key: use_radius
-      value: 1
+      value: 0
     - key: hive_radius
       value: 6
 --- !u!4 &1221712630

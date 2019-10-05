@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3991742361038835620}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Hive
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -175,7 +175,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 1.86}
+  m_AnchoredPosition: {x: 0, y: 2.49}
   m_SizeDelta: {x: 9.934, y: 1.991}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &3537946037916628435
