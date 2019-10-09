@@ -50,6 +50,11 @@ public class BeeAgent : Agent
         // Move the bee forward
         rigidBody.velocity = transform.forward * thrust * moveSpeed; // We don't really care about the bee moving in a realistic way here
 
+        // Penalise the bee for not moving
+        if(thrust == 0.0f) {
+            SetReward(-1.0f / agentParameters.maxStep);
+        }
+
         // Visual update
         if (beeMaterial) {
             beeMaterial.color = Color.Lerp(Color.yellow, Color.blue, (nectar / maxNectar));
