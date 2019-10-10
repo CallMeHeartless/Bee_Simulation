@@ -50,7 +50,6 @@ public class Flower : MonoBehaviour
     /// This function is called when the environment is reset and upon initialisation
     /// </summary>
     public void ResetFlower() {
-        //transform.parent.localScale = new Vector3(1.0f, 1.0f, 1.0f) * Random.Range(minScale, maxScale);
         isRefilling = true;
         nectar = maxNectar;
     }
@@ -82,7 +81,6 @@ public class Flower : MonoBehaviour
     /// </summary>
     private void StartRefilling() {
         isRefilling = true;
-        //flowerMaterial.color = Color.white;
     }
     
 }

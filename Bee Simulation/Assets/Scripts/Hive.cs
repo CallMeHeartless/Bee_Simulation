@@ -8,13 +8,9 @@ public class Hive : MonoBehaviour
     public TextMeshPro nectarScore;
     public float nectar = 0.0f;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     private void FixedUpdate() {
+        // Update the score [Consider refactoring this to be a function called during the Hive Interaction]
         nectarScore.text = nectar.ToString("0.00");
     }
 

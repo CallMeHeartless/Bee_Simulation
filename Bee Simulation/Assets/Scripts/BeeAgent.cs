@@ -50,11 +50,6 @@ public class BeeAgent : Agent
         // Move the bee forward
         rigidBody.velocity = transform.forward * thrust * moveSpeed; // We don't really care about the bee moving in a realistic way here
 
-        // Penalise the bee for not moving
-        //if(thrust == 0.0f) {
-        //    SetReward(-1.0f / agentParameters.maxStep);
-        //}
-
         // Visual update
         if (beeMaterial) {
             beeMaterial.color = Color.Lerp(Color.yellow, Color.blue, (nectar / maxNectar));
@@ -99,11 +94,11 @@ public class BeeAgent : Agent
         // Send the agent's max nectar value (1)
         AddVectorObs(maxNectar);
 
-        // Send agent's velocity (3) [Note: this is the same as the forward vector of the transform]
-        AddVectorObs(transform.forward); //rigidBody.velocity.normalized
+        // Send agent's forward direction (3) 
+        AddVectorObs(transform.forward); 
 
         // Normalise agent's rotation 
-        Vector3 normalisedRotation = (transform.rotation.eulerAngles / 180.0f) - Vector3.one; // Convert to [-1, 1]
+        Vector3 normalisedRotation = (transform.rotation.eulerAngles / 180.0f) - Vector3.one; // Converted to [-1, 1]
 
         // Send agent's rotation (3)
         AddVectorObs(normalisedRotation);
@@ -163,9 +158,7 @@ public class BeeAgent : Agent
                 FlowerInteraction(flower);
             }
         }
-        //else if (collision.gameObject.CompareTag("Bee")) {
-        //    // Bee interaction
-        //}
+
     }
 
     /// <summary>
@@ -208,11 +201,11 @@ public class BeeAgent : Agent
         }
 
         // Take some nectar from the flower
-        flower.SubtractNectar(Time.fixedDeltaTime);//Time.fixedDeltaTime
+        flower.SubtractNectar(Time.fixedDeltaTime);
 
         // Give it to the bee
         nectar += Time.fixedDeltaTime;
-        //nectar = 3.0f;
+
 
         // Clamp logically
         nectar = Mathf.Clamp(nectar, 0.0f, maxNectar);
@@ -223,7 +216,7 @@ public class BeeAgent : Agent
         }
 
         // Reward the bee
-        SetReward(Time.fixedDeltaTime);//
+        SetReward(Time.fixedDeltaTime);
     }
 
     /// <summary>

@@ -110,7 +110,9 @@ public class BeeEnvironment : MonoBehaviour
             }
 
             // Set the flower position
-            flowers[i].transform.position = ChooseRandomPosition(flowerClusterPosition, 0.0f, 360.0f, 1.0f, 3.0f);
+            flowers[i].transform.position = ChooseRandomPosition(flowerClusterPosition, 0.0f, 360.0f, 1.5f, 3.0f);
+            // Set a random rotation
+            flowers[i].transform.Rotate(new Vector3(0.0f, Random.Range(0.0f, 360.0f), 0.0f));
 
             // Reset nectar
             flowers[i].GetComponentInChildren<Flower>().nectar = 0.0f;    // we know the component exists - this is done here purely for efficiency, 
