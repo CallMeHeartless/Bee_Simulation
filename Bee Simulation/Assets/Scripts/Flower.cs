@@ -52,6 +52,9 @@ public class Flower : MonoBehaviour
     public void ResetFlower() {
         isRefilling = true;
         nectar = maxNectar;
+
+        // Assign a random scale
+        transform.parent.localScale = Vector3.one * Random.Range(minScale, maxScale);
     }
 
     /// <summary>

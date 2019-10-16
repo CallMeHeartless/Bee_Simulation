@@ -15,11 +15,12 @@ MonoBehaviour:
   brainParameters:
     vectorObservationSize: 48
     numStackedVectorObservations: 1
-    vectorActionSize: 02000000
+    vectorActionSize: 03000000
     cameraResolutions: []
     vectorActionDescriptions:
     - Thrust
+    - x rotation
     - y rotation
     vectorActionSpaceType: 1
-  model: {fileID: 5022602860645237092, guid: 71ac65331accf66428beae39f3ed62d5, type: 3}
+  model: {fileID: 5022602860645237092, guid: 8aa8ef85bc664394d9555cfe9eb39ded, type: 3}
   inferenceDevice: 0

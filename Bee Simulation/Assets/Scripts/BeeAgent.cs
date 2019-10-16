@@ -130,8 +130,8 @@ public class BeeAgent : Agent
         //thrust = moveVector[0];
 
         // Determine rotation
-        //rotationVector.x = moveVector[1];
-        rotationVector.y = moveVector[1]; // formerly 2
+        rotationVector.x = moveVector[1];
+        rotationVector.y = moveVector[2]; // formerly 1
     }
 
     /// <summary>
